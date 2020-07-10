@@ -53,7 +53,7 @@ class SignIn extends Component {
           <h3>Sign In</h3>
           <Form onSubmit={this.onSignIn}>
             <Form.Group controlId="email">
-              <Form.Label>Email username</Form.Label>
+              <Form.Label>Username</Form.Label>
               <Form.Control
                 required
                 type="text"
