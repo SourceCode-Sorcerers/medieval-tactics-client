@@ -9,6 +9,8 @@ import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import Game from '../Game/Game'
+import Chat from '../socket-test/chat'
+import Join from '../Join/Join'
 
 class App extends Component {
   constructor () {
@@ -16,7 +18,9 @@ class App extends Component {
 
     this.state = {
       user: null,
-      msgAlerts: []
+      msgAlerts: [],
+      name: '',
+      room: ''
     }
   }
 
@@ -27,6 +31,8 @@ class App extends Component {
   msgAlert = ({ heading, message, variant }) => {
     this.setState({ msgAlerts: [...this.state.msgAlerts, { heading, message, variant }] })
   }
+
+  setName = name => this.setState({ name })
 
   render () {
     const { msgAlerts, user } = this.state
@@ -42,7 +48,7 @@ class App extends Component {
             message={msgAlert.message}
           />
         ))}
-        <main className="container">
+        <main>
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
@@ -57,6 +63,12 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/game' render={() => (
             <Game msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/chat' render={() => (
+            <Chat name={name} msgAlert={this.msgAlert} user={user}/>
+          )} />
+          <AuthenticatedRoute user={user} path='/join' render={() => (
+            <Join name={name} setName={this.setName} msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>
