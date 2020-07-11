@@ -9,11 +9,20 @@ class Game extends Component {
 
     this.state = {
       p1HP: 100,
-      p2HP: 100
+      p2HP: 100,
+      board: ['player1', '', '', '', '', '', '', '', '', '', '', 'player2']
+
     }
   }
 
-  board = ['player1', '', '', '', '', '', '', '', '', '', '', 'player2']
+  setBoard = board => this.setState({ board })
+
+  move = (player, playerOldPos, playerNewPos) => {
+    const newBoard = this.state.board
+    newBoard[playerOldPos] = ''
+    newBoard[playerNewPos] = player
+    this.setBoard(newBoard)
+  }
 
   render () {
     return (
@@ -23,9 +32,10 @@ class Game extends Component {
         <button>Join a Game</button>
 
         <GameBoard
-          startingBoard = { this.board }
+          startingBoard = { this.state.board }
           p1HP = { this.state.p1HP }
           p2HP = { this.state.p2HP }
+          move = { this.move }
         />
       </Fragment>
     )
