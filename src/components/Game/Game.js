@@ -1,10 +1,7 @@
 import React, { Component, Fragment } from 'react'
 
 // import messages from '../AutoDismissAlert/messages'
-// import GameBoard from '../GameBoard/GameBoard.js'
-//         <GameBoard
-//            board = { this.board }
-//          />
+import GameBoard from '../GameBoard/GameBoard.js'
 
 class Game extends Component {
   constructor () {
@@ -15,7 +12,7 @@ class Game extends Component {
     }
   }
 
-  board = []
+  board = new Array(12)
 
   render () {
     return (
@@ -24,6 +21,9 @@ class Game extends Component {
 
         <button>Join a Game</button>
 
+        <GameBoard
+          startingBoard = { this.board }
+        />
       </Fragment>
     )
   }
