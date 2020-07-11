@@ -8,11 +8,12 @@ class Game extends Component {
     super()
 
     this.state = {
-
+      p1HP: 100,
+      p2HP: 100
     }
   }
 
-  board = new Array(12)
+  board = ['player1', '', '', '', '', '', '', '', '', '', '', 'player2']
 
   render () {
     return (
@@ -23,6 +24,8 @@ class Game extends Component {
 
         <GameBoard
           startingBoard = { this.board }
+          p1HP = { this.state.p1HP }
+          p2HP = { this.state.p2HP }
         />
       </Fragment>
     )

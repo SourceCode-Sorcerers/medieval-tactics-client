@@ -1,41 +1,15 @@
-import React, { useState, Fragment } from 'react'
-import { Modal, Button } from 'react-bootstrap'
+import React, { Fragment } from 'react'
 import Character from '../Character/Character'
 
-function Cell ({ id, handleChange, cell }) {
-  const [show, setShow] = useState(false)
-
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
-  const move = () => handleClose()
-  const attack = () => handleClose()
+function Cell ({ id, cell }) {
   return (
     <Fragment>
       <p
         id={id}
         className={'cell'}
-        onClick={handleShow}
       >
-        {(cell === 0 || cell === 11) ? <Character/> : cell}
+        {(cell === 'player1' || cell === 'player2') ? <Character/> : cell}
       </p>
-      <Modal show={show} onHide={handleClose} animation={false}>
-        <Modal.Body>
-          <section>
-            <Button
-              variant="outline-dark"
-              onClick={() => { move() }}
-            >
-              Move
-            </Button>
-            <Button
-              variant="outline-dark"
-              onClick={() => { attack() }}
-            >
-              Attack
-            </Button>
-          </section>
-        </Modal.Body>
-      </Modal>
     </Fragment>
   )
 }
