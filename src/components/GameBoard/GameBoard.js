@@ -22,7 +22,7 @@ const GameBoard = ({ user, gameId, startingBoard, msgAlert }) => {
       key = {index}
       id = {index}
       handleChange = {handleChange}
-      cell = {cell}
+      cell = {index}
     />
   ))
   return (

@@ -1,9 +1,6 @@
 import React, { useState, Fragment } from 'react'
 import { Modal, Button } from 'react-bootstrap'
-<<<<<<< HEAD
-=======
 import Character from '../Character/Character'
->>>>>>> Working on adding Character Component
 
 function Cell ({ id, handleChange, cell }) {
   const [show, setShow] = useState(false)
@@ -19,11 +16,7 @@ function Cell ({ id, handleChange, cell }) {
         className={'cell'}
         onClick={handleShow}
       >
-<<<<<<< HEAD
-        {cell}
-=======
-        {(cell === 1 || cell === 12) ? <Character/> : cell}
->>>>>>> Working on adding Character Component
+        {(cell === 0 || cell === 11) ? <Character/> : cell}
       </p>
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Body>
