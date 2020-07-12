@@ -1,26 +1,13 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { Fragment } from 'react'
 // import apiUrl from '../../apiConfig'
 // import axios from 'axios'
 import Cell from '../Cell/Cell'
 
-const GameBoard = ({ startingBoard, p1HP, p2HP, move, dealDamage }) => {
-  const [board, setBoard] = useState([])
-  useEffect(() => {
-    setBoard(startingBoard)
-  }, [startingBoard])
-  const handleChange = (cellId, value) => {
-    const newBoard = board.map(value => value)
-    if (value) {
-      newBoard[cellId] = Number(value)
-    } else {
-      newBoard[cellId] = ''
-    }
-  }
+const GameBoard = ({ board, p1HP, p2HP, move, dealDamage }) => {
   const boardJsx = board.map((cell, index) => (
     <Cell
       key = {index}
       id = {index}
-      handleChange = {handleChange}
       cell = {cell}
       move = {move}
       dealDamage = {dealDamage}
