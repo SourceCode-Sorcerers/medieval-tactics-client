@@ -5,8 +5,8 @@ import GameBoard from '../GameBoard/GameBoard.js'
 
 // socket implementation
 import io from 'socket.io-client'
-import { socketUrl } from '../../apiConfig'
-const socket = io(socketUrl)
+import apiUrl from '../../apiConfig'
+const socket = io(apiUrl)
 
 class Game extends Component {
   constructor () {
