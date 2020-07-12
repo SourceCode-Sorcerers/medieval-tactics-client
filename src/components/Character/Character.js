@@ -1,9 +1,10 @@
 import React, { useState, Fragment } from 'react'
 import { Modal, Button } from 'react-bootstrap'
+import img from '../../Resources/Character1.png'
 
-const Character = ({ board, move, cellId }) => {
+const Character = ({ board, move, dealDamage, cellId, player }) => {
   const [show, setShow] = useState(false)
-  const [playerName] = useState('player1')
+  const [playerName] = useState(player)
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -28,7 +29,17 @@ const Character = ({ board, move, cellId }) => {
     // Cannot use if in index 0 || player2 is there
     move(playerName, cellId, cellId - 1)
   }
-  const attack = () => handleClose()
+  const attack = () => {
+    let target
+    if (playerName === 'player1') {
+      target = 'player2'
+    } else {
+      target = 'player1'
+    }
+    console.log('Target in Character is: ' + target)
+    dealDamage(target, 20)
+    handleClose()
+  }
 
   let moveUpButton
   if (cellId >= 4 && board[cellId - 4] === '') {
@@ -78,11 +89,29 @@ const Character = ({ board, move, cellId }) => {
     )
   }
 
+  let enemySpace
+  if (playerName === 'player1') {
+    enemySpace = board.findIndex(name => name === 'player2')
+  } else {
+    enemySpace = board.findIndex(name => name === 'player1')
+  }
+  let attackButton
+  if (cellId - 1 === enemySpace || cellId + 1 === enemySpace || cellId - 4 === enemySpace || cellId + 4 === enemySpace) {
+    attackButton = (
+      <Button
+        variant="outline-dark"
+        onClick={() => { attack() }}
+      >
+        Attack
+      </Button>
+    )
+  }
+
   return (
     <Fragment>
       <img
         onClick={handleShow}
-        src="https://i.imgur.com/MFlDp7d.png"
+        src={img}
       />
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Body>
@@ -91,13 +120,7 @@ const Character = ({ board, move, cellId }) => {
             {moveRightButton}
             {moveDownButton}
             {moveLeftButton}
-
-            <Button
-              variant="outline-dark"
-              onClick={() => { attack() }}
-            >
-              Attack
-            </Button>
+            {attackButton}
           </section>
         </Modal.Body>
       </Modal>
