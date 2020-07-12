@@ -19,6 +19,11 @@ class Game extends Component {
     }
   }
 
+  setBoard = board => this.setState({ board })
+  setP1HP = p1HP => this.setState({ p1HP })
+  setP2HP = p2HP => this.setState({ p2HP })
+  setGameId = gameId => this.setState({ gameId })
+
   componentDidMount () {
     socket.on('message', message => {
       // setMessages(messages => [ ...messages, message ])
@@ -39,14 +44,36 @@ class Game extends Component {
     })
 
     socket.on('action', action => {
-      console.log(action)
+      const data = action.action
+      console.log(data)
+      switch (data.type) {
+      case 'move':
+        console.log(data.move)
+        const newBoard = this.state.board
+        newBoard[data.move.playerOldPos] = ''
+        newBoard[data.move.playerNewPos] = data.move.player
+        this.setBoard(newBoard)
+        break
+      case 'attack':
+        console.log(data.attack)
+        if (data.attack.player === 'player1') {
+          const newHP = this.state.p1HP - data.attack.damage
+          console.log('New HP is: ' + newHP)
+          this.setP1HP(newHP)
+        } else {
+          const newHP = this.state.p2HP - data.attack.damage
+          console.log('New HP is: ' + newHP)
+          this.setP2HP(newHP)
+        }
+        break
+      }
     })
   }
 
   join = (id, action) => {
     const gameId = id
     console.log('The game id is: ' + id)
-
+    this.setGameId(gameId)
     socket.emit('join', { gameId, action }, (error) => {
       if (error) {
         alert(error)
@@ -54,28 +81,20 @@ class Game extends Component {
     })
   }
 
-  setBoard = board => this.setState({ board })
-  setP1HP = p1HP => this.setState({ p1HP })
-  setP2HP = p2HP => this.setState({ p2HP })
-  setGameId = gameId => this.setState({ gameId })
-
   move = (player, playerOldPos, playerNewPos) => {
-    const newBoard = this.state.board
-    newBoard[playerOldPos] = ''
-    newBoard[playerNewPos] = player
-    this.setBoard(newBoard)
+    socket.emit('sendAction', { gameId: this.state.gameId, type: 'move', move: { player, playerOldPos, playerNewPos } }, (error) => {
+      if (error) {
+        alert(error)
+      }
+    })
   }
 
   dealDamage = (player, damage) => {
-    if (player === 'player1') {
-      const newHP = this.state.p1HP - damage
-      console.log('New HP is: ' + newHP)
-      this.setP1HP(newHP)
-    } else {
-      const newHP = this.state.p2HP - damage
-      console.log('New HP is: ' + newHP)
-      this.setP2HP(newHP)
-    }
+    socket.emit('sendAction', { gameId: this.state.gameId, type: 'attack', attack: { player, damage } }, (error) => {
+      if (error) {
+        alert(error)
+      }
+    })
   }
 
   render () {
