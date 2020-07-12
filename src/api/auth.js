@@ -1,4 +1,4 @@
-import apiUrl from '../apiConfig'
+import { apiUrl } from '../apiConfig'
 import axios from 'axios'
 
 export const signUp = credentials => {
@@ -16,6 +16,7 @@ export const signUp = credentials => {
 }
 
 export const signIn = credentials => {
+  console.log(apiUrl)
   return axios({
     url: apiUrl + '/sign-in',
     method: 'POST',
