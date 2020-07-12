@@ -15,11 +15,13 @@ const Character = ({ board, move, dealDamage, cellId, player }) => {
     move(playerName, cellId, cellId - 4)
   }
   const moveRight = () => {
+    console.log('move right')
     // Player position index +1
     // Cannot use if in index 11 || player2 is there
     move(playerName, cellId, cellId + 1)
   }
   const moveDown = () => {
+    console.log('move down')
     // Player position index +4
     // Cannot use if in index 8 or more || player2 is there
     move(playerName, cellId, cellId + 4)
