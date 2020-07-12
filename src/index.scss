@@ -1,1 +1,22 @@
 @import '~bootstrap/scss/bootstrap';
+
+$cell-size: 5rem;
+
+.board {
+  display: grid;
+  grid-template-columns: $cell-size $cell-size $cell-size $cell-size;
+}
+
+.cell {
+  border: 1px solid $black;
+  font-size: 2rem;
+  height: $cell-size;
+  margin: 0;
+  padding: 0;
+  width: $cell-size;
+}
+
+img {
+  height: $cell-size;
+  width: $cell-size;
+}
