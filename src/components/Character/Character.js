@@ -13,23 +13,25 @@ const Character = ({ board, move, dealDamage, cellId, player }) => {
     // Player position index -4
     // Cannot use if in index 3 or less || player2 is there
     move(playerName, cellId, cellId - 4)
+    handleClose()
   }
   const moveRight = () => {
-    console.log('move right')
     // Player position index +1
     // Cannot use if in index 11 || player2 is there
     move(playerName, cellId, cellId + 1)
+    handleClose()
   }
   const moveDown = () => {
-    console.log('move down')
     // Player position index +4
     // Cannot use if in index 8 or more || player2 is there
     move(playerName, cellId, cellId + 4)
+    handleClose()
   }
   const moveLeft = () => {
     // Player position index -1
     // Cannot use if in index 0 || player2 is there
     move(playerName, cellId, cellId - 1)
+    handleClose()
   }
   const attack = () => {
     let target
