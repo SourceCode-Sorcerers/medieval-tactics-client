@@ -3,7 +3,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 // import axios from 'axios'
 import Cell from '../Cell/Cell'
 
-const GameBoard = ({ startingBoard, p1HP, p2HP, move }) => {
+const GameBoard = ({ startingBoard, p1HP, p2HP, move, dealDamage }) => {
   const [board, setBoard] = useState([])
   useEffect(() => {
     setBoard(startingBoard)
@@ -23,6 +23,7 @@ const GameBoard = ({ startingBoard, p1HP, p2HP, move }) => {
       handleChange = {handleChange}
       cell = {cell}
       move = {move}
+      dealDamage = {dealDamage}
       board = {board}
     />
   ))
