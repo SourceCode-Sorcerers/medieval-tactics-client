@@ -23,6 +23,8 @@ class Game extends Component {
     super()
 
     this.state = {
+      player: 'player2',
+      gameStarted: false,
       activeGame: false,
       gameId: '',
       p1HP: 100,
@@ -36,6 +38,8 @@ class Game extends Component {
   setP2HP = p2HP => this.setState({ p2HP })
   setGameId = gameId => this.setState({ gameId })
   setActiveGame = activeGame => this.setState({ activeGame })
+  setPlayer = player => this.setState({ player })
+  setGameStarted = gameStarted => this.setState({ gameStarted })
 
   componentDidMount () {
     socket.on('message', message => {
@@ -47,12 +51,25 @@ class Game extends Component {
         break
       case 'new player':
         console.log('new player enter')
+        // set to player 1
+        this.setPlayer('player1')
+
+        // send message to socket to start game
+        socket.emit('message', { gameId: this.state.gameId, action: 'game Start' }, (error) => {
+          if (error) {
+            alert(error)
+          }
+        })
         break
       case 'leave':
         this.setActiveGame(false)
         console.log('Player left')
         break
+      case 'game Start':
+        this.setGameStarted(true)
+        break
       case 'game over':
+        this.setGameStarted(false)
         this.props.msgAlert({
           heading: message.winner + ' won',
           message: message.winner + ' won',
@@ -134,13 +151,17 @@ class Game extends Component {
     })
   }
 
+  // Initial board should be empty
+  // Intial player will be player 1
+  // Second player will be player 2
+
   render () {
-    const { user } = this.props
+    // const { user } = this.props
     return (
       <Fragment>
         { !this.state.activeGame ? (
           <Container>
-            <Button variant="dark" onClick={() => this.join(user.email, 'create')}>Start a Game</Button>
+            {/* <Button variant="dark" onClick={() => this.join(user.email, 'create')}>Start a Game</Button> */}
 
             <div>
               <input placeholder="Game Id" type="text" onChange={(event) => this.setGameId(event.target.value)} />
@@ -148,15 +169,26 @@ class Game extends Component {
             </div>
           </Container>
         ) : (
-          <Container>
-            <GameBoard
-              board = {this.state.board}
-              p1HP = {this.state.p1HP}
-              p2HP = {this.state.p2HP}
-              move = {this.move}
-              dealDamage = {this.dealDamage}
-            />
-          </Container>
+          <div>
+            <h3>{`The game Id is: ${this.state.gameId}`}</h3>
+            {this.state.gameStarted ? '' : (
+              <Fragment>
+                <p>Give it to your opponent</p>
+                <h3>waiting for opponent to join</h3>
+              </Fragment>
+            )}
+            <Container>
+              <GameBoard
+                player = {this.state.player}
+                board = {this.state.board}
+                p1HP = {this.state.p1HP}
+                p2HP = {this.state.p2HP}
+                move = {this.move}
+                dealDamage = {this.dealDamage}
+                gameStarted = {this.state.gameStarted}
+              />
+            </Container>
+          </div>
         )
         }
       </Fragment>)

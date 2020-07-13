@@ -3,15 +3,17 @@ import React, { Fragment } from 'react'
 // import axios from 'axios'
 import Cell from '../Cell/Cell'
 
-const GameBoard = ({ board, p1HP, p2HP, move, dealDamage }) => {
+const GameBoard = ({ player, board, p1HP, p2HP, move, dealDamage, gameStarted }) => {
   const boardJsx = board.map((cell, index) => (
     <Cell
+      player = {player}
       key = {index}
       id = {index}
       cell = {cell}
       move = {move}
       dealDamage = {dealDamage}
       board = {board}
+      gameStarted = {gameStarted}
     />
   ))
   return (
