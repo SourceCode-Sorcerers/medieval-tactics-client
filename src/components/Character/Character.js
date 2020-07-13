@@ -117,15 +117,13 @@ const Character = ({ board, move, dealDamage, cellId, player }) => {
         onClick={handleShow}
         src={img}
       />
-      <Modal show={show} onHide={handleClose} animation={false}>
+      <Modal show={show} onHide={handleClose} animation={true} centered={true}>
         <Modal.Body>
-          <section>
-            {moveUpButton}
-            {moveRightButton}
-            {moveDownButton}
-            {moveLeftButton}
-            {attackButton}
-          </section>
+          {moveUpButton}
+          {moveRightButton}
+          {moveDownButton}
+          {moveLeftButton}
+          {attackButton}
         </Modal.Body>
       </Modal>
     </Fragment>

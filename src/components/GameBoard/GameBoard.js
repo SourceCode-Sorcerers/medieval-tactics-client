@@ -16,10 +16,10 @@ const GameBoard = ({ board, p1HP, p2HP, move, dealDamage }) => {
   ))
   return (
     <Fragment>
+      <p>Player 1 HP <br/>{p1HP}</p>
       <form className = 'board' >
         {boardJsx}
       </form>
-      <p>Player 1 HP <br/>{p1HP}</p>
       <p>Player 2 HP <br/>{p2HP}</p>
     </Fragment>
   )
