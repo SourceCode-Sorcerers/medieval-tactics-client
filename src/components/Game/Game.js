@@ -52,37 +52,60 @@ class Game extends Component {
         this.setActiveGame(false)
         console.log('Player left')
         break
+      case 'game over':
+        this.props.msgAlert({
+          heading: message.winner + ' won',
+          message: message.winner + ' won',
+          variant: 'success'
+        })
+        break
       default:
         console.log('error in switch case')
       }
     })
 
     socket.on('action', action => {
-      const data = action.action
-      console.log(data)
-      switch (data.type) {
+      switch (action.type) {
       case 'move':
-        console.log(data.move)
         const newBoard = this.state.board
-        newBoard[data.move.playerOldPos] = ''
-        newBoard[data.move.playerNewPos] = data.move.player
+        newBoard[action.move.playerOldPos] = ''
+        newBoard[action.move.playerNewPos] = action.move.player
         this.setBoard(newBoard)
         break
       case 'attack':
-        console.log(data.attack)
-        if (data.attack.player === 'player1') {
-          const newHP = this.state.p1HP - data.attack.damage
-          console.log('New HP is: ' + newHP)
+        let newHP
+        if (action.attack.player === 'player1') {
+          newHP = Math.max(this.state.p1HP - action.attack.damage, 0)
           this.setP1HP(newHP)
         } else {
-          const newHP = this.state.p2HP - data.attack.damage
-          console.log('New HP is: ' + newHP)
+          newHP = Math.max(this.state.p2HP - action.attack.damage, 0)
           this.setP2HP(newHP)
+        }
+        if (newHP === 0) {
+          let winner
+          if (action.attack.player === 'player1') {
+            winner = 'Player 2'
+          } else {
+            winner = 'Player 1'
+          }
+          socket.emit('message', { gameId: this.state.gameId, action: 'game over', winner }, (error) => {
+            if (error) {
+              alert(error)
+            }
+          })
         }
         break
       }
     })
   }
+
+  // componentWillUnmount () {
+  //   socket.emit('disconnect', this.state.gameId, (error) => {
+  //     if (error) {
+  //       alert(error)
+  //     }
+  //   })
+  // }
 
   join = (id, action) => {
     const gameId = id
