@@ -59,6 +59,16 @@ class App extends Component {
             <Game msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
+        <footer>
+          <p>
+          Brandon DepalmaFarr: <a href="https://www.linkedin.com/in/brandon-depalmafarr/">LinkedIn Profile</a><br/>
+          John Lucker: <a href="https://www.linkedin.com/in/john-lucker/">LinkedIn Profile</a><br/>
+          Frank Luis-Ravelo: <a href="https://www.linkedin.com/in/franklr/">LinkedIn Profile</a><br/>
+            <a href="https://github.com/SourceCode-Sorcerers/medieval-tactics-client">GitHub Project</a><br/>
+            <a href="https://sites.google.com/mintbean.io/2020-07-10-multiplayer-hackath/home?authuser=2">Hackathon Prompt</a><br/>
+          A turn based tactical combat game.
+          </p>
+        </footer>
       </Fragment>
     )
   }

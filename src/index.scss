@@ -23,3 +23,11 @@ img {
   height: $cell-size;
   width: $cell-size;
 }
+
+footer {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  text-align: center;
+}
