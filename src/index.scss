@@ -1,5 +1,8 @@
 @import '~bootstrap/scss/bootstrap';
 
+body {
+  font-family: 'MedievalSharp', cursive;
+}
 $cell-size: 5rem;
 
 .board {
