@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 
 // import messages from '../AutoDismissAlert/messages'
 import GameBoard from '../GameBoard/GameBoard.js'
+import Instructions from './Instructions.js'
 
 // socket implementation
 import io from 'socket.io-client'
@@ -160,13 +161,14 @@ class Game extends Component {
     return (
       <Fragment>
         { !this.state.activeGame ? (
-          <Container>
+          <Container style={{ flexDirection: 'column' }}>
             {/* <Button variant="dark" onClick={() => this.join(user.email, 'create')}>Start a Game</Button> */}
 
             <div>
               <input placeholder="Game Id" type="text" onChange={(event) => this.setGameId(event.target.value)} />
               <Button variant="dark" onClick={() => this.join(this.state.gameId, 'join')} type="submit">Join a Game</Button>
             </div>
+            <Instructions/>
           </Container>
         ) : (
           <div>
