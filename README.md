@@ -51,7 +51,3 @@ We use [github] for versioning. For the versions available, see the (https://git
 * **Frank Luis Ravelo** - *Initial work* - [Frankazo](https://github.com/Frankazo)
 * **John Lucker** - *Initial work* - [luckyswims](https://github.com/luckyswims)
 * **Brandon DePalmaFarr** - *Initial work* - [DePalmaFarr](https://github.com/DePalmaFarr)
-
-## Acknowledgments
-
-* Used https://gist.github.com/PurpleBooth/109311bb0361f32d87a2#file-readme-template-md for README template
